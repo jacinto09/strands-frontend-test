@@ -1,10 +1,10 @@
 "use client";
 
 import { RootState } from "@/redux/store";
-import { PieChart, Pie, Cell } from "recharts";
+import { PieChart, Pie, Cell, ResponsiveContainer } from "recharts";
 import { fetchBreedsAndImages } from "@/redux/features/dogSlice";
-import { useAppDispatch, useAppSelector } from "@/redux/hooks";
-import { useEffect } from "react";
+import { useAppDispatch, useAppSelector } from "@/redux/hooks/hooks";
+import { useEffect, useMemo } from "react";
 import { COLORS } from "@/utils/constants";
 import { formatDataToTopTen } from "@/utils/format";
 function DogChart() {
@@ -20,25 +20,37 @@ function DogChart() {
   const dogBreedImages = useAppSelector(
     (state: RootState) => state.dogs.images
   );
-  console.log(status);
 
-  const topTenBreeds = formatDataToTopTen(dogBreedImages);
+  const topTenBreeds = useMemo(
+    () => formatDataToTopTen(dogBreedImages),
+    [dogBreedImages]
+  );
   if (status === "loading") {
     return <div>Loading...</div>;
   }
+  if (status === "failed") {
+    return (
+      <div>
+        <h1 className="text-2xl font-bold text-red-500">Failed to load data</h1>
+      </div>
+    );
+  }
+
   return (
-    <PieChart width={1200} height={600}>
-      <Pie
-        data={topTenBreeds}
-        dataKey="value"
-        nameKey="name"
-        label={({ name }) => `${name}`}
-      >
-        {topTenBreeds?.map((_, index) => (
-          <Cell key={`cell-${index}`} fill={COLORS[index]} />
-        ))}
-      </Pie>
-    </PieChart>
+    <ResponsiveContainer width="100%" height="100%">
+      <PieChart>
+        <Pie
+          data={topTenBreeds}
+          dataKey="value"
+          nameKey="name"
+          label={({ name }) => `${name}`}
+        >
+          {topTenBreeds?.map((_, index) => (
+            <Cell key={`cell-${index}`} fill={COLORS[index]} />
+          ))}
+        </Pie>
+      </PieChart>
+    </ResponsiveContainer>
   );
 }
 
