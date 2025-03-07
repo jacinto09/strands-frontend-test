@@ -38,7 +38,7 @@ function DogChart() {
 
   return (
     <ResponsiveContainer width="100%" height="100%">
-      <PieChart>
+      <PieChart title="Top 10 dog breeds with the most images">
         <Pie
           data={topTenBreeds}
           dataKey="value"
