@@ -4,6 +4,9 @@ import "./globals.css";
 
 export const metadata = {
   title: "Strands frontend test",
+  icons: {
+    icon: "/icon.ico",
+  },
 };
 
 export default function RootLayout({
