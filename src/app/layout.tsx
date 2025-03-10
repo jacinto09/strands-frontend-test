@@ -17,8 +17,10 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body>
-        <Header />
-        <StoreProvider>{children}</StoreProvider>
+        <main>
+          <Header />
+          <StoreProvider>{children}</StoreProvider>
+        </main>
       </body>
     </html>
   );
