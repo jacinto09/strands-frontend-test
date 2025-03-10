@@ -36,5 +36,4 @@ This project is an application developed in **Next.js 15** with **Redux Toolkit*
  npm run dev
 ```
 
-Translated with DeepL.com (free version)
 ````

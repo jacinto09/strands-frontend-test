@@ -14,7 +14,6 @@ export const fetchBreedsAndImages = createAsyncThunk(
     const data = await response.json();
     const breeds = Object.keys(data.message);
 
-    // Hacer todas las llamadas para obtener imágenes
     const imagePromises = breeds.map(async (breed) => {
       const res = await fetch(`https://dog.ceo/api/breed/${breed}/images`);
       const imgData = await res.json();
